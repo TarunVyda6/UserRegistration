@@ -27,14 +27,37 @@ public class UserRegistration
 		System.out.println("please enter the phone number");
 		String phoneNumber = scanner.nextLine();
 		phoneNumber = validatePhoneNumber(scanner, phoneNumber);
+		
+		System.out.println("please enter the password");
+		String password = scanner.nextLine();
+		password = validatePassword(scanner, password);
 
 		System.out.println("first name is : " + firstName);
 		System.out.println("last name is : " + lastName);
 		System.out.println("email id is : " + email);
 		System.out.println("phone number is : " + phoneNumber);
+		System.out.println("password is : "+ password);
 
 	}
 
+	private static String validatePassword(Scanner scanner, String password) 
+	{
+		String regex = "^[a-zA-Z0-9]{8,}$";
+		String type = "password";
+		String status = validation(password, type, regex);
+
+		if (status != "true") 
+		{
+			System.out.println(status + "\nplease enter the password correctly");
+			password = scanner.nextLine();
+			password = validatePassword(scanner, password);
+			return password;
+		}
+		return password;
+	}
+	
+	
+	
 	private static String validatePhoneNumber(Scanner scanner, String phoneNumber) 
 	{
 		String regex = "^[0-9]{2,3} [0-9]{10}$";
@@ -99,7 +122,13 @@ public class UserRegistration
 		{
 			errorMessage = "phone number should be country code followed by space and 10 digit number";
 		}
-
+		
+		
+		else if (type == "password") 
+		{
+			errorMessage = "password should be minimum 8 characters";
+		}
+		
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(value);
 		return matcher.matches() ? "true" : errorMessage;
