@@ -42,7 +42,7 @@ public class UserRegistration
 
 	private static String validatePassword(Scanner scanner, String password) 
 	{
-		String regex = "^([a-z0-9]{1,})?[A-Z]{1,5}[a-zA-Z0-9]{1,15}$";
+		String regex = "^(?=.*[0-9])(?=.*[A-Z]).{8,20}$";
 		String type = "password";
 		String status = validation(password, type, regex);
 
