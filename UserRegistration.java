@@ -21,10 +21,35 @@ public class UserRegistration
 		System.out.println("please enter the last name");
 		String lastName = scanner.nextLine();
 		lastName = validateName(scanner,lastName);
+		System.out.println("please enter the email id");
+		String email =  scanner.nextLine();
+		email = validateEmail(scanner, email);
+		
+		
 		System.out.println("first name is : " + firstName);
 		System.out.println("last name is : " + lastName);
+		System.out.println("email id is : " + email);
+		
+		
 	}
 
+	private static String validateEmail(Scanner scanner, String email)
+	{
+		String regex = "^[a-zA-Z]{3,}[0-9]{0,}([-._+]{1}[a-zA-Z0-9]{3,})?@[a-zA-Z0-9]{1,}[.]{1}[a-zA-Z]{3}(.[a-zA-z]{2,4})?$";
+		String type = "email";
+		String status = validation(email, type, regex);
+		
+		if( status != "true" ) 
+		{
+			System.out.println(status+"\nplease enter the email correctly");
+			email = scanner.nextLine();
+			email = validateEmail(scanner, email);
+			return email;
+		}
+		return email;
+	}
+	
+	
 	private static String validateName(Scanner scanner, String name) 
 	{
 		String regex = "^[A-Z]{1}[a-zA-Z]{2,17}$";
@@ -32,7 +57,7 @@ public class UserRegistration
 		String status = validation(name, type, regex);
 		if( status != "true" ) 
 		{
-			System.out.println(status+"\nplease enter the name");
+			System.out.println(status+"\nplease enter the name correctly");
 			name = scanner.nextLine();
 			name = validateName(scanner, name);
 			return name;
@@ -51,7 +76,10 @@ public class UserRegistration
 		 {
 			 errorMessage = "First Name should be 3 to 20 characters and should start with a Capital letter.";
 		 }
-		 
+		 else if ( type == "email" )
+		 {
+			 errorMessage = "email should be abc.xyz@bridgelabz.co.in form where abc, bridgelabz and co are mandatory and the remaining are optional";
+		 }
 			Pattern pattern = Pattern.compile(regex);  
 	        Matcher matcher = pattern.matcher(value); 
 	        return matcher.matches()? "true" : errorMessage; 
