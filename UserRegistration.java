@@ -42,7 +42,7 @@ public class UserRegistration
 
 	private static String validatePassword(Scanner scanner, String password) 
 	{
-		String regex = "^(?=.*[0-9])(?=.*[A-Z]).{8,20}$";
+		String regex = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,20}$";
 		String type = "password";
 		String status = validation(password, type, regex);
 
@@ -125,7 +125,7 @@ public class UserRegistration
 
 		else if (type == "password") 
 		{
-			errorMessage = "password should be minimum 8 characters and atleast one capital letter";
+			errorMessage = "password should be minimum 8 characters and atleast one capital letter, number and special character";
 		}
 
 		Pattern pattern = Pattern.compile(regex);
