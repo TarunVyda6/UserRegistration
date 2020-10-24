@@ -3,125 +3,65 @@ package com.userregistration;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class UserValidation
 {
     @Test
-    public void whenGiven_ProperName_ShouldReturn_True ()
+    public void testNameValidate ()
     {
-        boolean result = UserRegistration.validateName ( "Rahul" );
-        Assert.assertTrue ( result );
+        // Valid names
+        String[] validNames = {"Akram", "Joe"};
+        for (String name : validNames)
+            assertTrue ( UserRegistration.validateUserName.validate ( name ) );
+        // Invalid names
+        String[] invalidNames = {"kram", "bh", "Akr8a"};
+        for (String name : invalidNames)
+            assertFalse ( UserRegistration.validateUserName.validate ( name ) );
     }
 
     @Test
-    public void whenGiven_ShortName_ShouldReturn_False ()
+    public void testEmailValidate ()
     {
-        boolean result = UserRegistration.validateName ( "Ra" );
-        Assert.assertFalse ( result );
+        // Valid email
+        String[] validEmails = {"abc@yahoo.com", "abc-100@yahoo.com", "abc.100@yahoo.com", "abc111@abc.com",
+                "abc-100@abc.net", "abc.100@abc.com.au", "abc@1.com", "abc@gmail.com.co", "abc+100@gmail.com"};
+        for (String email : validEmails)
+            assertTrue ( UserRegistration.validateEmail.validate ( email ) );
+        // Invalid email
+        String[] invalidEmails = {"abc", "abc@.com.my", "abc123@gmail.a", "abc123@.com", "abc123@.com.com",
+                ".abc@abc.com", "abc()*@gmail.com", "abc@%*.com", "abc..2002@gmail.com", "abc.@gmail.com",
+                "abc@abc@gmail.com", "abc@gmail.com.1a", "abc@gmail.com.aa.au"};
+        for (String email : invalidEmails)
+            assertFalse ( (UserRegistration.validateEmail.validate ( email )) );
     }
 
     @Test
-    public void whenGiven_Digit_Name_ShouldReturn_False ()
+    public void testMobileNumberValidate ()
     {
-        boolean result = UserRegistration.validateName ( "1Rahul" );
-        Assert.assertFalse ( result );
+        // Valid mobile numbers
+        String[] validMobileNumbers = {"91 9851605588", "92 6584122568"};
+        for (String mobileNumber : validMobileNumbers)
+            assertTrue ( UserRegistration.validateNumber.validate ( mobileNumber ) );
+        // Invalid mobile numbers
+        String[] invalidMobileNumbers = {"9 9851256598", "91 67656415"};
+        for (String mobileNumber : invalidMobileNumbers)
+            assertFalse ( UserRegistration.validateNumber.validate ( mobileNumber ) );
     }
 
     @Test
-    public void whenGiven_SpecialCharacter_Name_ShouldReturn_False ()
+    public void testPasswordValidate ()
     {
-        boolean result = UserRegistration.validateName ( "Rahul*" );
-        Assert.assertFalse ( result );
+        // Valid passwords
+        String[] validPasswords = {"Akram@123*", "Akram3@Kabir/"};
+        for (String password : validPasswords)
+            assertTrue ( UserRegistration.validatePassword.validate ( password ) );
+        // Invalid passwords
+        String[] invalidPasswords = {"Akrhg*98/", "AkramKabir!", "AkramKabir!", "AkramKabir!"};
+        for (String password : invalidPasswords)
+            assertFalse ( UserRegistration.validatePassword.validate ( password ) );
     }
 
-    @Test
-    public void whenGiven_NotCapitalFirst_Name_ShouldReturn_False ()
-    {
-        boolean result = UserRegistration.validateName ( "rahul" );
-        Assert.assertFalse ( result );
-    }
-
-    @Test
-    public void whenGiven_ProperEmail_ShouldReturn_True ()
-    {
-       boolean result = UserRegistration.validateEmail ( "Rahul.raja6@yahoo.com" );
-        Assert.assertTrue ( result );
-    }
-
-    @Test
-    public void whenGiven_ImProperEmail_ShouldReturn_False ()
-    {
-        boolean result = UserRegistration.validateEmail ( "abc.@gmail.com" );
-        Assert.assertFalse ( result );
-    }
-
-    @Test
-    public void whenGiven_ProperMobileNumber_ShouldReturn_True ()
-    {
-        boolean result = UserRegistration.validatePhoneNumber ( "91 8989898989" );
-        Assert.assertTrue ( result );
-    }
-
-    @Test
-    public void whenGiven_LessDigitsNumber_ShouldReturn_False ()
-    {
-        boolean result = UserRegistration.validatePhoneNumber ( "91 89874" );
-        Assert.assertFalse ( result );
-    }
-
-    @Test
-    public void whenGiven_ImproperCountryCode_ShouldReturn_False ()
-    {
-        boolean result = UserRegistration.validatePhoneNumber ( "9165 8987488888" );
-        Assert.assertFalse ( result );
-    }
-
-    @Test
-    public void whenGiven_WithoutCountryCode_ShouldReturn_False ()
-    {
-        boolean result = UserRegistration.validatePhoneNumber ( "8987488888" );
-        Assert.assertFalse ( result );
-    }
-
-    @Test
-    public void whenGiven_MoreThanTenDigits_ShouldReturn_False ()
-    {
-        boolean result = UserRegistration.validatePhoneNumber ( "91 898748888888" );
-        Assert.assertFalse ( result );
-    }
-
-    @Test
-    public void whenGiven_ProperPassword_ShouldReturn_True ()
-    {
-        boolean result = UserRegistration.validatePassword ( "India@2020" );
-        Assert.assertTrue ( result );
-    }
-
-    @Test
-    public void whenGiven_PasswordLessThanEightCharacters_ShouldReturn_False ()
-    {
-        boolean result = UserRegistration.validatePassword ( "India@6" );
-        Assert.assertFalse ( result );
-    }
-
-    @Test
-    public void whenGiven_PasswordWithoutCapitalLetter_ShouldReturn_False ()
-    {
-        boolean result = UserRegistration.validatePassword ( "india@2020" );
-        Assert.assertFalse ( result );
-    }
-
-    @Test
-    public void whenGiven_PasswordWithoutNumber_ShouldReturn_False ()
-    {
-        boolean result = UserRegistration.validatePassword ( "India@oooo" );
-        Assert.assertFalse ( result );
-    }
-
-    @Test
-    public void whenGiven_PasswordWithoutSpecialCharater_ShouldReturn_False ()
-    {
-        boolean result = UserRegistration.validatePassword ( "India2020" );
-        Assert.assertFalse ( result );
-    }
 
 }
