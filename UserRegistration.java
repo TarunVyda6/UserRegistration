@@ -1,7 +1,7 @@
 package com.userregistration;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.Pattern; 
 
 interface ValidateUserInput
 {
